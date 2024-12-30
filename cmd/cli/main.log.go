@@ -23,15 +23,11 @@ func main() {
 	logger.Info("Info log", zap.Int("line", 1))
 	logger.Error("Error log", zap.Int("line", 2))
 
-
-
 }
-
 
 // /format log
 func getEncoderLog() zapcore.Encoder {
 	encodeConfig := zap.NewProductionEncoderConfig()
-
 
 	encodeConfig.EncodeTime = zapcore.ISO8601TimeEncoder
 	encodeConfig.EncodeLevel = zapcore.CapitalLevelEncoder
@@ -42,14 +38,11 @@ func getEncoderLog() zapcore.Encoder {
 
 }
 
-// 
 func getWriterSync() zapcore.WriteSyncer {
 	// Tạo thư mục nếu chưa tồn tại
-    if err := os.MkdirAll("./log", os.ModePerm); err != nil {
-        panic(err)
-    }
-
-
+	if err := os.MkdirAll("./log", os.ModePerm); err != nil {
+		panic(err)
+	}
 
 	file, err := os.OpenFile("./log/log.txt", os.O_CREATE|os.O_WRONLY, os.ModePerm)
 	if err != nil {
@@ -59,10 +52,4 @@ func getWriterSync() zapcore.WriteSyncer {
 	syncConsole := zapcore.AddSync(os.Stderr)
 	return zapcore.NewMultiWriteSyncer(syncConsole, syncFile)
 
-
-	
-
 }
-
-
-
