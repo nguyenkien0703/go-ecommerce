@@ -1,6 +1,6 @@
 server:
   port: 8080
-  mode: "dev" // development mode
+  mode: "dev" # development mode
 #  mode: "proc" // production mode
 mysql:
   host: 127.0.0.1
