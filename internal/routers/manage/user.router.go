@@ -1,19 +1,26 @@
 package manage
 
-import "github.com/gin-gonic/gin"
+import (
+	"example.com/go-ecommerce-backend-api/internal/controller"
+	"example.com/go-ecommerce-backend-api/internal/repo"
+	"example.com/go-ecommerce-backend-api/internal/services"
+	"github.com/gin-gonic/gin"
+)
 
 type UserRouter struct {
 }
 
 func (pr *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	// public router
+	ur := repo.NewUserRepository()
+	us := services.NewUserService(ur)
+	userHandlerNonDependency := controller.NewUserController(us)
+	userRouterPublic := Router.Group("/admin/user")
+	{
+		userRouterPublic.POST("/register", userHandlerNonDependency.Register)
+		//userRouterPublic.PUT("/otp")
 
-	//userRouterPublic := Router.Group("/admin/user")
-	//{
-	//	userRouterPublic.POST("/register")
-	//	userRouterPublic.PUT("/otp")
-	//
-	//}
+	}
 
 	// private router
 	userRouterPrivate := Router.Group("/admin/user")

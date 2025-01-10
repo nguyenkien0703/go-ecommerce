@@ -1,0 +1,95 @@
+version: '3.9'
+services:
+
+#  mysql:
+#    image: mysql:8.0
+#    container_name: mysql_container
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root1234
+#      MYSQL_DATABASE: shopdevgo
+#      MYSQL_PASSWORD: root1234
+#    ports:
+#      - "33306:3306"
+#    volumes:
+#      - mysql_data:/var/lib/mysql
+#      - ./init:/docker-entrypoint-initdb.d
+  redis:
+    image: redis:7.0
+    container_name: redis_container
+    ports:
+      - "6331:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: redisinsight_container
+    ports:
+      - "15540:5540"
+    environment:
+      - REDIS_HOSTS=redis:6379
+    depends_on:
+      - redis
+  zookeeper:
+    image: bitnami/zookeeper:3.8
+    container_name: zookeeper_container
+    ports:
+      - "12181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    volumes:
+      - zookeeper_data:/bitnamo/zookeeper
+  kafka:
+    image: 'bitnami/kafka:3.5'
+    container_name: kafka_container
+    environment:
+      ## Zookeeper configuration
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      # Listener configurations
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_CFG_LISTENERS: INTERNAL://19094:,EXTERNAL://:19095
+      KAFKA_CFG_ADVERTISED_LISTENERS: INTERNAL://kafka:19094,EXTERNAL://localhost:19095
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_ZOOKEEPER_PROTOCOL: SASL_SSL
+      # Performance and operational settings
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: true
+      KAFKA_CFG_DELETE_TOPIC_ENABLE: true
+      KAFKA_CFG_NUM_PARTITIONS: 3
+      KAFKA_CFG_DEFAULT_REPLICATION_FACTOR: 1
+      # Heap and performance tuning
+      KAFKA_HEAP_OPTS: -Xmx1G -Xms512M
+      # Log retention
+      KAFKA_CFG_LOG_RETENTION_HOURS: 168
+      KAFKA_CFG_LOG_SEGMENT_BYTES: 1073741824
+      # Authentication
+      ALLOW_PLAINTEXT_LISTENER: yes
+    depends_on:
+      - zookeeper
+    volumes:
+      - kafka_data:/bitnami/kafka
+    ports:
+      - "19094:9094"
+      - "19095:9095"
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui_container
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka_container:9094
+    ports:
+      - "9090:8080"
+    depends_on:
+      - kafka
+
+volumes:
+  redis_data:
+    driver: local
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local
