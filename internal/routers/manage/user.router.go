@@ -9,10 +9,6 @@ type UserRouter struct {
 
 func (pr *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	// public router
-	//ur := repo.NewUserRepository()
-	//us := services.NewUserService(ur)
-	//userHandlerNonDependency := controller.NewUserController(us)
-	//userController, _ := wire.InitUserRouterHandler()
 
 	userRouterPublic := Router.Group("/admin/user")
 	{
@@ -27,7 +23,7 @@ func (pr *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	//userRouterPrivate.Use(Authen())
 	//userRouterPrivate.Use(Permission())
 	{
-		userRouterPrivate.POST("/active_user")
+		userRouterPrivate.POST("/active_user_")
 
 	}
 }

@@ -7,6 +7,8 @@ const (
 
 	// register code
 	ErrCodeUserHasExist = 501 // user has exist
+	ErrInvalidOTP       = 302
+	ErrSendEmailOTP     = 303
 )
 
 var msg = map[int]string{
@@ -14,4 +16,6 @@ var msg = map[int]string{
 	ErrCodeParamInvalid: "email is invalid",
 	ErrInvalidToken:     "token is invalid",
 	ErrCodeUserHasExist: "user has exist",
+	ErrInvalidOTP:       "otp error",
+	ErrSendEmailOTP:     "send email otp error",
 }
