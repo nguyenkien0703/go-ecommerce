@@ -31,8 +31,6 @@ func NewUserService(
 }
 
 func (us *userService) Register(email string, purpose string) int {
-	//fmt.Println("email-----", email)
-	//fmt.Println("purpose-----", purpose)
 
 	//0. hashEmail
 	hashEmail := crypto.GetHash(email)
@@ -50,20 +48,12 @@ func (us *userService) Register(email string, purpose string) int {
 	if purpose == "TEST" {
 		otp = 123456
 	}
-	//fmt.Println("otp------", otp)
 
 	//3.save OTP in redis with expiration time
 	err := us.userAuthRepo.AddOTP(hashEmail, otp, int64(10*time.Minute))
 	if err != nil {
 		return response.ErrInvalidOTP
 	}
-	//4. send email otp
-	//err = sendto.SendTextEmailOtp([]string{email}, "kiennv.contact@gmail.com", strconv.Itoa(otp))
-	//if err != nil {
-	//	return response.ErrSendEmailOTP
-	//}
-	////
-	////
 
 	// 4. send Email OTP
 	err = sendto.SendTemplateEmailOtp([]string{email}, "anonystick@gmail.com", "otp-auth.html", map[string]interface{}{
