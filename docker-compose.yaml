@@ -1,4 +1,8 @@
 version: '3.9'
+networks:
+  go-ecommerce-local-network:
+    driver: bridge
+
 services:
 
 #  mysql:
@@ -26,6 +30,8 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+    networks:
+      - go-ecommerce-local-network
   redisinsight:
     image: redis/redisinsight:latest
     container_name: redisinsight_container
@@ -35,43 +41,51 @@ services:
       - REDIS_HOSTS=redis:6379
     depends_on:
       - redis
-  zookeeper:
-    image: bitnami/zookeeper:3.8
-    container_name: zookeeper_container
-    ports:
-      - "12181:2181"
-    environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
-    volumes:
-      - zookeeper_data:/bitnamo/zookeeper
+    networks:
+      - go-ecommerce-local-network
+
   kafka:
     image: 'bitnami/kafka:3.5'
     container_name: kafka_container
     environment:
-      ## Zookeeper configuration
-      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      # cluster configuration
+      - KAFKA_CFG_NODE_ID=0
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka-0:9094
+
       # Listener configurations
-      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
-      KAFKA_CFG_LISTENERS: INTERNAL://19094:,EXTERNAL://:19095
-      KAFKA_CFG_ADVERTISED_LISTENERS: INTERNAL://kafka:19094,EXTERNAL://localhost:19095
-      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: INTERNAL
-      KAFKA_ZOOKEEPER_PROTOCOL: SASL_SSL
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9091,CONTROLLER://:9094,EXTERNAL://:9095
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT
+
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-0:9091,EXTERNAL://localhost:9095
+        
       # Performance and operational settings
-      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: true
-      KAFKA_CFG_DELETE_TOPIC_ENABLE: true
-      KAFKA_CFG_NUM_PARTITIONS: 3
-      KAFKA_CFG_DEFAULT_REPLICATION_FACTOR: 1
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+      - KAFKA_CFG_DELETE_TOPIC_ENABLE=true
+      - KAFKA_CFG_NUM_PARTITIONS=3
+      - KAFKA_CFG_DEFAULT_REPLICATION_FACTOR=1
+
       # Heap and performance tuning
-      KAFKA_HEAP_OPTS: -Xmx1G -Xms512M
+      - KAFKA_HEAP_OPTS=-Xmx1G -Xms512M
+        # Authentication
+      - ALLOW_PLAINTEXT_LISTENER=yes
       # Log retention
-      KAFKA_CFG_LOG_RETENTION_HOURS: 168
-      KAFKA_CFG_LOG_SEGMENT_BYTES: 1073741824
-      # Authentication
-      ALLOW_PLAINTEXT_LISTENER: yes
-    depends_on:
-      - zookeeper
+      - KAFKA_CFG_LOG_RETENTION_HOURS=168
+      - KAFKA_CFG_LOG_SEGMENT_BYTES=1073741824
+
+
+
+
+
+
     volumes:
-      - kafka_data:/bitnami/kafka
+      - ./data/kafka_data:/bitnami/kafka
+    networks:
+      - go-ecommerce-local-network
+
     ports:
       - "19094:9094"
       - "19095:9095"
@@ -85,6 +99,8 @@ services:
       - "9090:8080"
     depends_on:
       - kafka
+    networks:
+      - go-ecommerce-local-network
 
 volumes:
   redis_data:

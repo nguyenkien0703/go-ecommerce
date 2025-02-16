@@ -1,13 +1,15 @@
 package services
 
 import (
+	"context"
+	"encoding/json"
+	"example.com/go-ecommerce-backend-api/global"
 	"example.com/go-ecommerce-backend-api/internal/repo"
 	"example.com/go-ecommerce-backend-api/internal/utils/crypto"
 	"example.com/go-ecommerce-backend-api/internal/utils/random"
-	"example.com/go-ecommerce-backend-api/internal/utils/sendto"
 	"example.com/go-ecommerce-backend-api/pkg/response"
 	"fmt"
-	"strconv"
+	"github.com/segmentio/kafka-go"
 	"time"
 )
 
@@ -65,11 +67,28 @@ func (us *userService) Register(email string, purpose string) int {
 	//}
 
 	// send email OTP by java
-	err = sendto.SendEmailToJavaByAPI(strconv.Itoa(otp), email, "opt-auth.html")
-	fmt.Printf("err sendto JAVA:::%d\n", err)
+	//err = sendto.SendEmailToJavaByAPI(strconv.Itoa(otp), email, "opt-auth.html")
+	//fmt.Printf("err sendto JAVA:::%d\n", err)
+	//if err != nil {
+	//	return response.ErrSendEmailOTP
+	//}
+
+	// send OTP via kafka JAVA
+
+	body := make(map[string]interface{})
+	body["otp"] = otp
+	body["email"] = email
+	bodyRequest, _ := json.Marshal(body)
+	message := kafka.Message{
+		Key:   []byte("otp-auth"),
+		Value: []byte(bodyRequest),
+		Time:  time.Now(),
+	}
+	err = global.KafkaProducer.WriteMessages(context.Background(), message)
 	if err != nil {
 		return response.ErrSendEmailOTP
 	}
+
 	return response.ErCodeSuccess
 
 }
