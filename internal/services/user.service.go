@@ -55,15 +55,21 @@ func (us *userService) Register(email string, purpose string) int {
 		return response.ErrInvalidOTP
 	}
 
-	// 4. send Email OTP
-	err = sendto.SendTemplateEmailOtp([]string{email}, "anonystick@gmail.com", "otp-auth.html", map[string]interface{}{
-		"otp": strconv.Itoa(otp),
-	})
-	fmt.Printf("err sendto :::%d\n", err)
+	//// 4. send Email OTP
+	//err = sendto.SendTemplateEmailOtp([]string{email}, "anonystick@gmail.com", "otp-auth.html", map[string]interface{}{
+	//	"otp": strconv.Itoa(otp),
+	//})
+	//fmt.Printf("err sendto :::%d\n", err)
+	//if err != nil {
+	//	return response.ErrSendEmailOTP
+	//}
+
+	// send email OTP by java
+	err = sendto.SendEmailToJavaByAPI(strconv.Itoa(otp), email, "opt-auth.html")
+	fmt.Printf("err sendto JAVA:::%d\n", err)
 	if err != nil {
 		return response.ErrSendEmailOTP
 	}
-
 	return response.ErCodeSuccess
 
 }
