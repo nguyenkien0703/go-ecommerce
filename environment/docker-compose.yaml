@@ -44,7 +44,7 @@ services:
     networks:
       - go-ecommerce-local-network
 
-  kafka:
+  kafka-0:
     image: 'bitnami/kafka:3.5'
     container_name: kafka_container
     environment:
@@ -76,11 +76,6 @@ services:
       - KAFKA_CFG_LOG_RETENTION_HOURS=168
       - KAFKA_CFG_LOG_SEGMENT_BYTES=1073741824
 
-
-
-
-
-
     volumes:
       - ./data/kafka_data:/bitnami/kafka
     networks:
@@ -93,12 +88,12 @@ services:
     image: provectuslabs/kafka-ui:latest
     container_name: kafka-ui_container
     environment:
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka_container:9094
+      KAFKA_CLUSTERS_0_NAME: env-kafka-cluster
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-0:9091
     ports:
       - "9090:8080"
     depends_on:
-      - kafka
+      - kafka-0
     networks:
       - go-ecommerce-local-network
 

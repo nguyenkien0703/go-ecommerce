@@ -5,7 +5,7 @@
 FROM golang:alpine AS builder
 WORKDIR /build
 
-COPY go.mod .
+COPY ../go.mod .
 RUN go mod download # giong voi npm install
 #Biên dịch chương trình Go từ thư mục ./cmd/server, và tạo ra file thực thi có tên crm.shopdev.com đặt trong /build.
 RUN go build -o crm.shopdev.com ./cmd/server
@@ -14,7 +14,7 @@ RUN go build -o crm.shopdev.com ./cmd/server
 #Thích hợp cho ứng dụng Go vì Go tạo ra file thực thi tĩnh.
 FROM scratch
 
-COPY ./config /config
+COPY ../config /config
 #Sao chép chứng chỉ SSL từ builder sang container. Điều này rất cần thiết nếu ứng dụng cần thực hiện các kết nối HTTPS.
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 #Sao chép file thực thi crm.shopdev.com từ builder vào thư mục gốc của container.

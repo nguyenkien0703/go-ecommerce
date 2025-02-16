@@ -6,7 +6,7 @@ POST {{baseUrl}}/user/register
 Content-Type: application/json
 
 {
-    "email": "nguyenkien123ns@gmail.com",
+  "email": "nguyenkien123ns@gmail.com",
   "purpose": "test"
 }
 
