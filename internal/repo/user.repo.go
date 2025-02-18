@@ -1,10 +1,14 @@
 package repo
 
 import (
+	"database/sql"
+	"errors"
 	"example.com/go-ecommerce-backend-api/global"
 	"example.com/go-ecommerce-backend-api/internal/database"
+	"fmt"
 )
 
+// import "context"
 type IUserRepository interface {
 	GetUserByEmail(email string) bool
 }
@@ -15,13 +19,24 @@ type userRepository struct {
 }
 
 func (up *userRepository) GetUserByEmail(email string) bool {
-	// SELECT * FROM user WHERE email = '??' ORDER BY email
-	//row := global.Mdb.Table(TableNameGoCrmUser).Where("usr_email = ?", email).First(&model.GoCrmUser{}).RowsAffected
-	user, err := up.sqlc.GetUserByEmailSQLC(ctx, email)
-	if err != nil {
+	if up.sqlc == nil {
+		fmt.Println("sqlc is nil")
 		return false
 	}
 
+	//ctx := context.Background() // Đảm bảo có ctx
+	user, err := up.sqlc.GetUserByEmailSQLC(ctx, email)
+
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			fmt.Println("Không tìm thấy user:", email)
+			return false // User không tồn tại
+		}
+		fmt.Println("Lỗi truy vấn database:", err)
+		return false
+	}
+
+	fmt.Println("User tìm thấy:", user)
 	return user.UsrID != 0
 }
 

@@ -41,6 +41,7 @@ func (us *userService) Register(email string, purpose string) int {
 	//5. check otp is available
 	//6. user spam otp
 	//1. check email is exist db
+
 	if us.userRepo.GetUserByEmail(email) {
 		return response.ErrCodeUserHasExist
 	}
@@ -50,8 +51,9 @@ func (us *userService) Register(email string, purpose string) int {
 	if purpose == "TEST" {
 		otp = 123456
 	}
+	fmt.Sprintln("otp----", otp)
 
-	//3.save OTP in redis with expiration time
+	////3.save OTP in redis with expiration time
 	err := us.userAuthRepo.AddOTP(hashEmail, otp, int64(10*time.Minute))
 	if err != nil {
 		return response.ErrInvalidOTP
@@ -78,10 +80,16 @@ func (us *userService) Register(email string, purpose string) int {
 	body := make(map[string]interface{})
 	body["otp"] = otp
 	body["email"] = email
-	bodyRequest, _ := json.Marshal(body)
+	bodyRequest, errK := json.Marshal(body)
+	if errK != nil {
+		fmt.Println(errK)
+		return 1
+	}
+	fmt.Sprintln("string(bodyRequest)-----", string(bodyRequest))
+
 	message := kafka.Message{
 		Key:   []byte("otp-auth"),
-		Value: []byte(bodyRequest),
+		Value: []byte(string(bodyRequest)),
 		Time:  time.Now(),
 	}
 	err = global.KafkaProducer.WriteMessages(context.Background(), message)

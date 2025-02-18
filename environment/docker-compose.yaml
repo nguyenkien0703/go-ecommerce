@@ -45,53 +45,51 @@ services:
       - go-ecommerce-local-network
 
   kafka-0:
-    image: 'bitnami/kafka:3.5'
+    image: bitnami/kafka:3.5
     container_name: kafka_container
+    ports:
+      - "9092:9092" # Internal listener
+      - "9094:9094" # External listener - use in application
     environment:
       # cluster configuration
       - KAFKA_CFG_NODE_ID=0
       - KAFKA_CFG_PROCESS_ROLES=controller,broker
-      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka-0:9094
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka-0:9092
 
       # Listener configurations
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
 
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9091,CONTROLLER://:9094,EXTERNAL://:9095
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9091,CONTROLLER://:9092,EXTERNAL://:9094
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT
 
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-0:9091,EXTERNAL://localhost:9095
-        
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-0:9091,EXTERNAL://localhost:9094
+
       # Performance and operational settings
       - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
       - KAFKA_CFG_DELETE_TOPIC_ENABLE=true
       - KAFKA_CFG_NUM_PARTITIONS=3
       - KAFKA_CFG_DEFAULT_REPLICATION_FACTOR=1
-
       # Heap and performance tuning
       - KAFKA_HEAP_OPTS=-Xmx1G -Xms512M
-        # Authentication
-      - ALLOW_PLAINTEXT_LISTENER=yes
       # Log retention
       - KAFKA_CFG_LOG_RETENTION_HOURS=168
       - KAFKA_CFG_LOG_SEGMENT_BYTES=1073741824
 
+      # Authentication
+      - ALLOW_PLAINTEXT_LISTENER=yes
     volumes:
       - ./data/kafka_data:/bitnami/kafka
     networks:
       - go-ecommerce-local-network
-
-    ports:
-      - "19094:9094"
-      - "19095:9095"
-  kafka-ui:
+  kafka_ui:
     image: provectuslabs/kafka-ui:latest
-    container_name: kafka-ui_container
-    environment:
-      KAFKA_CLUSTERS_0_NAME: env-kafka-cluster
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-0:9091
+    container_name: kafka_ui
     ports:
-      - "9090:8080"
+      - "${KAFKA_UI_PORT}:8080"
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=env-kafka-cluster
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka-0:9091
     depends_on:
       - kafka-0
     networks:

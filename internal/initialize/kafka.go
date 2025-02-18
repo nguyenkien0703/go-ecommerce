@@ -11,7 +11,7 @@ var KafkaProducer *kafka.Writer
 
 func InitKafka() {
 	global.KafkaProducer = &kafka.Writer{
-		Addr:     kafka.TCP("localhost:19094"),
+		Addr:     kafka.TCP("localhost:9094"),
 		Topic:    "otp-auth-topic", // topic
 		Balancer: &kafka.LeastBytes{},
 	}
