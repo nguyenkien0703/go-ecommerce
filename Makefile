@@ -20,8 +20,13 @@ dev:
 docker_up:
 	docker compose up -d
 
-down:
-	docker compose down
+up_by_one:
+	@cmd /c "set GOOSE_DRIVER=$(GOOSE_DRIVER)&& set GOOSE_DBSTRING=$(GOOSE_DBSTRING)&& goose -dir=$(GOOSE_MIGRATION_DIR) up-by-one"
+
+# create a new migration
+#example: make create_migration name=00001_pre_go_acc_user_verify_9999
+create_migration:
+	@goose -dir=$(GOOSE_MIGRATION_DIR) create $(name) sql
 
 # Lệnh migrate database sử dụng goose trên Windows
 upse:
@@ -33,5 +38,8 @@ downse:
 resetse:
 	@cmd /c "set GOOSE_DRIVER=$(GOOSE_DRIVER)&& set GOOSE_DBSTRING=$(GOOSE_DBSTRING)&& goose -dir=$(GOOSE_MIGRATION_DIR) reset"
 
-.PHONY: dev downse upse resetse docker_build docker_stop docker_up
+
+sqlgen:
+	sqlc generate
+.PHONY: dev downse upse resetse docker_build docker_stop docker_up sqlgen create_migration up_by_one
 .PHONY: air # Tương tự như nodemon bên Node.js, tự động reload server khi code thay đổi
