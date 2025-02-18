@@ -3,7 +3,6 @@ package initialize
 import (
 	"database/sql"
 	"example.com/go-ecommerce-backend-api/global"
-	"example.com/go-ecommerce-backend-api/internal/model"
 	"fmt"
 	"go.uber.org/zap"
 	"gorm.io/gen"
@@ -46,9 +45,9 @@ func SetPoolC() {
 
 func migrateTablesC() {
 	err := global.Mdb.AutoMigrate(
-		//&po.User{},
-		//&po.Role{},
-		model.GoCrmUserV2{},
+	//&po.User{},
+	//&po.Role{},
+	//model.GoCrmUserV2{},
 	)
 	if err != nil {
 		fmt.Println("migrate tables error: %s::", err)
