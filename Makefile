@@ -20,7 +20,7 @@ dev:
 docker_up:
 	docker compose up -d
 
-up_by_one:
+up_by_one: #tao bang duoi db
 	@cmd /c "set GOOSE_DRIVER=$(GOOSE_DRIVER)&& set GOOSE_DBSTRING=$(GOOSE_DBSTRING)&& goose -dir=$(GOOSE_MIGRATION_DIR) up-by-one"
 
 # create a new migration

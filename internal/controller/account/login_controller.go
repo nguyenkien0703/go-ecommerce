@@ -15,6 +15,33 @@ type cUserLogin struct {
 
 var Login = new(cUserLogin)
 
+// UpdatePasswordRegister
+// @Summary      UpdatePasswordRegister
+// @Description  UpdatePasswordRegister
+// @Tags         accounts management
+// @Accept       json
+// @Produce      json
+// @Param        payload body model.UpdatePasswordRegisterInput true "payload"
+// @Success      200  {object}  response.ResponseData
+// @Failure      500  {object}  response.ErrResponseData
+// @Router       /user/update_pass_register [post]
+func (c *cUserLogin) UpdatePasswordRegister(ctx *gin.Context) {
+	var params model.UpdatePasswordRegisterInput
+
+	if err := ctx.ShouldBindJSON(&params); err != nil {
+		response.ErrorResponse(ctx, response.ErrCodeParamInvalid, err.Error())
+		return
+	}
+
+	result, err := services.UserLogin().UpdatePasswordRegister(ctx, params.UserToken, params.UserPassword)
+	if err != nil {
+		response.ErrorResponse(ctx, result, err.Error())
+		return
+	}
+	response.SuccessResponse(ctx, response.ErCodeSuccess, result)
+
+}
+
 // Verify OTP Login By User
 // @Summary      Verify OTP Login By User
 // @Description  Verify OTP Login By User

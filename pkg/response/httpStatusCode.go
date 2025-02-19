@@ -11,15 +11,17 @@ const (
 	ErrSendEmailOTP     = 303
 
 	// Err Login
-	ErrCodeOtpNotExists = 609
+	ErrCodeOtpNotExists     = 609
+	ErrCodeUserOtpNotExists = 608
 )
 
 var msg = map[int]string{
-	ErCodeSuccess:       "success",
-	ErrCodeParamInvalid: "email is invalid",
-	ErrInvalidToken:     "token is invalid",
-	ErrCodeUserHasExist: "user has exist",
-	ErrInvalidOTP:       "otp error",
-	ErrSendEmailOTP:     "send email otp error",
-	ErrCodeOtpNotExists: "OTP exists but not registered",
+	ErCodeSuccess:           "success",
+	ErrCodeParamInvalid:     "email is invalid",
+	ErrInvalidToken:         "token is invalid",
+	ErrCodeUserHasExist:     "user has exist",
+	ErrInvalidOTP:           "otp error",
+	ErrSendEmailOTP:         "send email otp error",
+	ErrCodeOtpNotExists:     "OTP exists but not registered",
+	ErrCodeUserOtpNotExists: "User OTP not exists",
 }
