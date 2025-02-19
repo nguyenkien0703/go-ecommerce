@@ -28,6 +28,25 @@ type sUserLogin struct {
 	r *database.Queries
 }
 
+// ---- TWO FACTOR AUTHEN -----
+// two-factor authentication
+func (s *sUserLogin) IsTwoFactorEnabled(ctx context.Context, userId int) (codeResult int, rs bool, err error) {
+	return 200, true, nil
+}
+
+// setup authentication
+func (s *sUserLogin) SetupTwoFactorAuth(ctx context.Context, in *model.SetupTwoFactorAuthInput) (codeResult int, err error) {
+	return 200, nil
+
+}
+
+// Verify Two Factor Authentication
+func (s *sUserLogin) VerifyTwoFactorAuth(ctx context.Context, in *model.TwoFactorVerificationInput) (codeResult int, err error) {
+	return 200, nil
+
+}
+
+// ---- END TWO FACTOR AUTHEN ----
 // Implement the IUserLogin interface here
 func (s *sUserLogin) Login(ctx context.Context, in *model.LoginInputHaha) (codeResult int, out model.LoginOutputHaha, err error) {
 	// 1. logic login
