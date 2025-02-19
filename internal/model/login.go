@@ -21,3 +21,13 @@ type UpdatePasswordRegisterInput struct {
 	UserToken    string `json:"user_token"`
 	UserPassword string `json:"user_password"`
 }
+
+type LoginInputHaha struct {
+	UserAccount  string `json:"user_account"`
+	UserPassword string `json:"user_password"`
+}
+
+type LoginOutputHaha struct {
+	Token   string `json:"token"`
+	Message string `json:"message"`
+}

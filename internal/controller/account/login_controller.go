@@ -67,17 +67,30 @@ func (c *cUserLogin) VerifyOTP(ctx *gin.Context) {
 
 }
 
+// User Login
+// @Summary      User Login
+// @Description  User Login
+// @Tags         accounts management
+// @Accept       json
+// @Produce      json
+// @Param        payload body model.LoginInputHaha true "payload"
+// @Success      200  {object}  response.ResponseData
+// @Failure      500  {object}  response.ErrResponseData
+// @Router       /user/login [post]
 func (c *cUserLogin) Login(ctx *gin.Context) {
 
 	// implement logic for login
-	err := services.UserLogin().Login(ctx)
-
+	var params model.LoginInputHaha
+	if err := ctx.ShouldBindJSON(&params); err != nil {
+		response.ErrorResponse(ctx, response.ErrCodeParamInvalid, err.Error())
+		return
+	}
+	codeRs, dataRs, err := services.UserLogin().Login(ctx, &params)
 	if err != nil {
 		response.ErrorResponse(ctx, response.ErrCodeParamInvalid, err.Error())
 		return
 	}
-
-	response.SuccessResponse(ctx, response.ErCodeSuccess, nil)
+	response.SuccessResponse(ctx, codeRs, dataRs)
 
 }
 

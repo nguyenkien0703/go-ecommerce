@@ -3,12 +3,14 @@ package impl
 import (
 	"context"
 	"database/sql"
+	"encoding/json"
 	"example.com/go-ecommerce-backend-api/global"
 	consts "example.com/go-ecommerce-backend-api/internal/const"
 	"example.com/go-ecommerce-backend-api/internal/database"
 	"example.com/go-ecommerce-backend-api/internal/model"
 	"example.com/go-ecommerce-backend-api/internal/services"
 	"example.com/go-ecommerce-backend-api/internal/utils"
+	"example.com/go-ecommerce-backend-api/internal/utils/auth"
 	"example.com/go-ecommerce-backend-api/internal/utils/crypto"
 	"example.com/go-ecommerce-backend-api/internal/utils/random"
 	"example.com/go-ecommerce-backend-api/internal/utils/sendto"
@@ -27,8 +29,48 @@ type sUserLogin struct {
 }
 
 // Implement the IUserLogin interface here
-func (s *sUserLogin) Login(ctx context.Context) error {
-	return nil
+func (s *sUserLogin) Login(ctx context.Context, in *model.LoginInputHaha) (codeResult int, out model.LoginOutputHaha, err error) {
+	// 1. logic login
+	userBase, err := s.r.GetOneUserInfo(ctx, in.UserAccount)
+	if err != nil {
+		return response.ErrCodeAuthFailed, out, err
+	}
+	// 2. check password?
+	if !crypto.MatchingPassword(userBase.UserPassword, in.UserPassword, userBase.UserSalt) {
+		return response.ErrCodeAuthFailed, out, fmt.Errorf("does not match password")
+	}
+	// 3. check two-factor authentication
+	// 4. update password time
+	go s.r.LoginUserBase(ctx, database.LoginUserBaseParams{
+		UserLoginIp:  sql.NullString{String: "127.0.0.1", Valid: true},
+		UserAccount:  in.UserAccount,
+		UserPassword: in.UserPassword, // khong can
+	})
+	// 5. Create UUID User
+	subToken := utils.GenerateCliTokenUUID(int(userBase.UserID))
+	log.Println("subtoken:", subToken)
+	// 6. get user_info table
+	infoUser, err := s.r.GetUser(ctx, uint64(userBase.UserID))
+	if err != nil {
+		return response.ErrCodeAuthFailed, out, err
+	}
+	// convert to json
+	infoUserJson, err := json.Marshal(infoUser)
+	if err != nil {
+		return response.ErrCodeAuthFailed, out, fmt.Errorf("convert to json failed: %v", err)
+	}
+	// 7. give infoUserJson to redis with key = subToken
+	err = global.Rdb.Set(ctx, subToken, infoUserJson, time.Duration(consts.TIME_OTP_REGISTER)*time.Minute).Err()
+	if err != nil {
+		return response.ErrCodeAuthFailed, out, err
+	}
+	// 8. create token
+	out.Token, err = auth.CreateToken(subToken)
+	if err != nil {
+		return
+	}
+	return 200, out, nil
+
 }
 
 func (s *sUserLogin) Register(ctx context.Context, in *model.RegisterInput) (codeResult int, err error) {

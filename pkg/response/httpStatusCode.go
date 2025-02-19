@@ -13,6 +13,9 @@ const (
 	// Err Login
 	ErrCodeOtpNotExists     = 609
 	ErrCodeUserOtpNotExists = 608
+
+	// User Authentication
+	ErrCodeAuthFailed = 405
 )
 
 var msg = map[int]string{
@@ -24,4 +27,5 @@ var msg = map[int]string{
 	ErrSendEmailOTP:         "send email otp error",
 	ErrCodeOtpNotExists:     "OTP exists but not registered",
 	ErrCodeUserOtpNotExists: "User OTP not exists",
+	ErrCodeAuthFailed:       "Authentication failed",
 }
