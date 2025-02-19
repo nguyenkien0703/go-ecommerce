@@ -41,5 +41,8 @@ resetse:
 
 sqlgen:
 	sqlc generate
-.PHONY: dev downse upse resetse docker_build docker_stop docker_up sqlgen create_migration up_by_one
+
+swag:
+	swag init -g ./cmd/server/main.go -o ./cmd/swag/docs
+.PHONY: dev downse upse resetse docker_build docker_stop docker_up sqlgen create_migration up_by_one swag
 .PHONY: air # Tương tự như nodemon bên Node.js, tự động reload server khi code thay đổi

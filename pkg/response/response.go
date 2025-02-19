@@ -8,6 +8,12 @@ type ResponseData struct {
 	Data    interface{} `json:"data"`
 }
 
+type ErrResponseData struct {
+	Code   int         `json:"code"`   // Ma status code
+	Error  string      `json:"error"`  //
+	Detail interface{} `json:"detail"` // Thong bao loi
+}
+
 // success response
 func SuccessResponse(c *gin.Context, code int, data interface{}) {
 	c.JSON(code, ResponseData{
@@ -17,14 +23,11 @@ func SuccessResponse(c *gin.Context, code int, data interface{}) {
 	})
 }
 
-func ErrorResponse(c *gin.Context, code int, message string ) {
+func ErrorResponse(c *gin.Context, code int, message string) {
 
-	c.JSON(code, ResponseData {
-		Code: code,
+	c.JSON(code, ResponseData{
+		Code:    code,
 		Message: msg[code],
-		Data: nil,
+		Data:    nil,
 	})
 }
-
-
-
