@@ -1,6 +1,16 @@
+# List Variables Goose
 GOOSE_DBSTRING=root:topsecret@tcp(127.0.0.1:3307)/shopdevgo
 GOOSE_MIGRATION_DIR=sql/schema
 GOOSE_DRIVER=mysql
+
+
+# List Variables Color
+GREEN_COLOR_BG = \033[42m
+RED_COLOR_BG = \033[41m
+YELLOW_COLOR_BG = \033[43m
+RESET_COLOR = \033[0m
+
+
 
 ##name app
 APP_NAME := server
@@ -41,7 +51,7 @@ resetse:
 
 sqlgen:
 	sqlc generate
-
+# handle swagger
 swag:
 	if exist cmd\swag rmdir /s /q cmd\swag
 	swag init -g ./cmd/server/main.go -o ./cmd/swag/docs

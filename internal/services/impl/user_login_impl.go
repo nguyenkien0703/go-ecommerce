@@ -56,7 +56,7 @@ func (s *sUserLogin) SetupTwoFactorAuth(ctx context.Context, in *model.SetupTwoF
 	}
 	// 3. send otp to in.TwoFactorEmail
 	keyUserTwoFator := crypto.GetHash("2fa:" + strconv.Itoa(int(in.UserId)))
-	go global.Rdb.Set(ctx, keyUserTwoFator, "123456", time.Duration(consts.TIME_OTP_REGISTER)*time.Minute).Err()
+	go global.Rdb.Set(ctx, keyUserTwoFator, "123456", time.Duration(consts.TIME_2FA_OTP_REGISTER)*time.Minute).Err()
 	// if err != nil {
 	// 	return response.ErrCodeTwoFactorAuthSetupFailed, err
 	// }

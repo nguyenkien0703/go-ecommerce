@@ -2,6 +2,7 @@ package user
 
 import (
 	"example.com/go-ecommerce-backend-api/internal/controller/account"
+	"example.com/go-ecommerce-backend-api/internal/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,6 +26,7 @@ func (pr *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 
 	// private router
 	userRouterPrivate := Router.Group("/user")
+	userRouterPrivate.Use(middlewares.AuthenMiddleware())
 	//userRouterPrivate.Use(limiter())
 	//userRouterPrivate.Use(Authen())
 	//userRouterPrivate.Use(Permission())
