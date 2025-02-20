@@ -97,6 +97,6 @@ func (us *userService) Register(email string, purpose string) int {
 		return response.ErrSendEmailOTP
 	}
 
-	return response.ErCodeSuccess
+	return response.ErrCodeSuccess
 
 }

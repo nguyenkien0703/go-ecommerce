@@ -38,7 +38,7 @@ func (c *cUserLogin) UpdatePasswordRegister(ctx *gin.Context) {
 		response.ErrorResponse(ctx, result, err.Error())
 		return
 	}
-	response.SuccessResponse(ctx, response.ErCodeSuccess, result)
+	response.SuccessResponse(ctx, response.ErrCodeSuccess, result)
 
 }
 
@@ -63,7 +63,7 @@ func (c *cUserLogin) VerifyOTP(ctx *gin.Context) {
 		response.ErrorResponse(ctx, response.ErrCodeParamInvalid, err.Error())
 		return
 	}
-	response.SuccessResponse(ctx, response.ErCodeSuccess, result)
+	response.SuccessResponse(ctx, response.ErrCodeSuccess, result)
 
 }
 
@@ -121,6 +121,6 @@ func (c *cUserLogin) Register(ctx *gin.Context) {
 		response.ErrorResponse(ctx, codeStatus, err.Error())
 		return
 	}
-	response.SuccessResponse(ctx, response.ErCodeSuccess, nil)
+	response.SuccessResponse(ctx, response.ErrCodeSuccess, nil)
 
 }
