@@ -17,7 +17,7 @@ func (pr *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 		//userRouterPublic.POST("/register", userController.Register)
 		userRouterPublic.POST("/register", account.Login.Register)
 		//userRouterPublic.PUT("/otp")
-		userRouterPublic.POST("/login", account.Login.Login)
+		userRouterPublic.POST("/login", account.Login.Login) // login -> YES -> No
 		userRouterPublic.POST("/verify_account", account.Login.VerifyOTP)
 		userRouterPublic.POST("/update_pass_register", account.Login.UpdatePasswordRegister)
 
@@ -30,6 +30,7 @@ func (pr *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	//userRouterPrivate.Use(Permission())
 	{
 		userRouterPrivate.GET("/get_info")
+		userRouterPrivate.POST("/two-factor/setup", account.TwoFA.SetupTwoFactorAuth)
 
 	}
 }
