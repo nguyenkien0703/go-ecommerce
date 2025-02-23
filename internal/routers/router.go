@@ -9,14 +9,14 @@ package routers
 //	"github.com/gin-gonic/gin"
 //)
 //
-//func AA() gin.HandlerFunc{
+//func AA() gin.HandlerFunc {
 //	return func(c *gin.Context) {
 //		fmt.Println("before -> AA")
 //		c.Next()
 //		fmt.Println("alter -> AA")
 //	}
 //}
-//func BB() gin.HandlerFunc{
+//func BB() gin.HandlerFunc {
 //	return func(c *gin.Context) {
 //		fmt.Println("before -> BB")
 //		c.Next()
@@ -31,19 +31,15 @@ package routers
 //
 //}
 //
-//
-//
-//
 //func NewRouter() *gin.Engine {
 //	r := gin.Default()
 //	// use middleware
 //	r.Use(middlewares.AuthenMiddleware(), BB(), CC)
 //
-//
-//	v1:= r.Group("/v1/2024" )
+//	v1 := r.Group("/v1")
 //	{
 //		v1.GET("/ping", c.NewPongController().Pong)
-//		v1.GET("/user/1", c.NewUserController().GetUserById)
+//		//v1.GET("/user/1", c.NewUserController().GetUserById)
 //		// v1.PUT("/ping", Pong)
 //		// v1.PATCH("/ping", Pong)
 //		// v1.DELETE("/ping", Pong)
@@ -53,6 +49,3 @@ package routers
 //
 //	return r
 //}
-//
-//
-//

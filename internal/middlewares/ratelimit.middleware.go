@@ -50,7 +50,7 @@ func rateLimiter(interval string) *limiter.Limiter {
 func (rl *RateLimiter) GlobalRateLimiter() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		key := "global" // uint
-		log.Println("global-->")
+
 		limitContext, err := rl.globalRateLimiter.Get(c, key)
 		if err != nil {
 			fmt.Println("Failed to check rate limit GLOBAL", err)
@@ -114,6 +114,11 @@ func (rl *RateLimiter) UserAndPrivateRateLimiter() gin.HandlerFunc {
 	}
 }
 func (rl *RateLimiter) filterLimitUrlPath(urlPath string) *limiter.Limiter {
+	//if urlPath == "/metrics" {
+	//	return nil
+	//} else if urlPath == "/swagger/index.html" {
+	//	return nil
+	//}
 	if urlPath == "/v1/2024/user/login" || urlPath == "/ping/80" {
 		return rl.publicAPIRateLimiter
 	} else if urlPath == "/v1/2024/user/info" || urlPath == "/ping/50" {

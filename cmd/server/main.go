@@ -4,8 +4,9 @@ import (
 	_ "example.com/go-ecommerce-backend-api/cmd/swag/docs"
 	"example.com/go-ecommerce-backend-api/global"
 	"example.com/go-ecommerce-backend-api/internal/initialize" // name of module, in go.mod file
-	swaggerFiles "github.com/swaggo/files"                     // swagger embed files
-	ginSwagger "github.com/swaggo/gin-swagger"                 // gin-swagger middleware
+	"fmt"
+	swaggerFiles "github.com/swaggo/files"     // swagger embed files
+	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 	"strconv"
 )
 
@@ -36,5 +37,7 @@ func main() {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	port := strconv.Itoa(global.Config.Server.Port)
 	r.Run(":" + port)
+	kien := global.Prometheus.RequestCount
+	fmt.Println("kien line 41----", kien)
 
 }
