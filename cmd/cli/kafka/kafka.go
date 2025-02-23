@@ -17,6 +17,7 @@ var (
 const (
 	kafkaURL   = "localhost:19094"
 	kafkaTopic = "user_topic_vip"
+	groupID    = "test-group"
 )
 
 // for producer
@@ -24,7 +25,7 @@ func getKafkaWriter(kafkaURL, topic string) *kafka.Writer {
 	return &kafka.Writer{
 		Addr:     kafka.TCP(kafkaURL),
 		Topic:    topic,
-		Balancer: &kafka.LeastBytes{},
+		Balancer: &kafka.LeastBytes{}, // can bang tai mac dinh
 	}
 }
 
@@ -32,12 +33,12 @@ func getKafkaWriter(kafkaURL, topic string) *kafka.Writer {
 func getKafkaReader(kafkaURL, topic, groupID string) *kafka.Reader {
 	brokers := strings.Split(kafkaURL, ",")
 	return kafka.NewReader(kafka.ReaderConfig{
-		Brokers:        brokers,
+		Brokers:        brokers, // list of broker addresses []string{"localhost:1", "localhost:2", ...}
 		GroupID:        groupID,
 		Topic:          topic,
-		MinBytes:       10e3, // 10KB
-		MaxBytes:       10e6, // 10MB
-		CommitInterval: time.Second,
+		MinBytes:       10e3,            // 10KB   // 10KB - the minimum number of bytes to fetch in a request
+		MaxBytes:       10e6,            // 10MB    // 10MB - the maximum number of bytes to fetch in a request
+		CommitInterval: 1 * time.Second, // the interval between which the reader commits the offset of messages it has read
 		StartOffset:    kafka.FirstOffset,
 	})
 }
@@ -47,7 +48,8 @@ type StockInfo struct {
 	Type    string `json:"type"`
 }
 
-// mua ban chung khoan
+// mua ban chung khoang
+// new stock
 func newStock(msg, typeMsg string) *StockInfo {
 	s := StockInfo{}
 	s.Message = msg
@@ -56,6 +58,7 @@ func newStock(msg, typeMsg string) *StockInfo {
 	return &s
 }
 
+// action
 func actionStock(c *gin.Context) {
 	s := newStock(c.Query("msg"), c.Query("type"))
 	body := make(map[string]interface{})
@@ -63,7 +66,7 @@ func actionStock(c *gin.Context) {
 	body["info"] = s
 
 	jsonBody, _ := json.Marshal(body)
-	// tao msg
+	// tao  message cua kafka
 	msg := kafka.Message{
 		Key:   []byte("action"),
 		Value: []byte(jsonBody),
@@ -86,6 +89,7 @@ func actionStock(c *gin.Context) {
 // consumer hóng mua ATC
 func RegisterConsumerATC(id int) {
 	// group consumer??
+	// kafkaGroupId := "consumer-group-"
 	kafkaGroupId := fmt.Sprintf("consumer-group-%d", id) // "consumer-group-1"
 	reader := getKafkaReader(kafkaURL, kafkaTopic, kafkaGroupId)
 

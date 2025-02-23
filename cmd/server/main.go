@@ -2,9 +2,11 @@ package main
 
 import (
 	_ "example.com/go-ecommerce-backend-api/cmd/swag/docs"
+	"example.com/go-ecommerce-backend-api/global"
 	"example.com/go-ecommerce-backend-api/internal/initialize" // name of module, in go.mod file
 	swaggerFiles "github.com/swaggo/files"                     // swagger embed files
 	ginSwagger "github.com/swaggo/gin-swagger"                 // gin-swagger middleware
+	"strconv"
 )
 
 // @title           API Documentation Ecommerce Backend SHOPDEVGO
@@ -32,6 +34,7 @@ func main() {
 	r := initialize.Run()
 	// use swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	r.Run(":8002")
+	port := strconv.Itoa(global.Config.Server.Port)
+	r.Run(":" + port)
 
 }

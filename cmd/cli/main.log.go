@@ -28,16 +28,19 @@ func main() {
 // /format log
 func getEncoderLog() zapcore.Encoder {
 	encodeConfig := zap.NewProductionEncoderConfig()
-
+	// 1735319483.2445319 -> 2024-12-28T00:11:23.243+0700
 	encodeConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	// from info -> INFO
 	encodeConfig.EncodeLevel = zapcore.CapitalLevelEncoder
+	// ts -> Time
 	encodeConfig.TimeKey = "time"
-
+	// "caller":"cli/main.log.go:24"
 	encodeConfig.EncodeCaller = zapcore.ShortCallerEncoder
 	return zapcore.NewJSONEncoder(encodeConfig)
 
 }
 
+// getWriteSync returns a WriteSyncer that writes to a file and stderr
 func getWriterSync() zapcore.WriteSyncer {
 	// Tạo thư mục nếu chưa tồn tại
 	if err := os.MkdirAll("./log", os.ModePerm); err != nil {

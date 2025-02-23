@@ -5,18 +5,42 @@ networks:
 
 services:
 
+  # My sql service
 #  mysql:
 #    image: mysql:8.0
-#    container_name: mysql_container
+#    container_name: mysql_v8_container
 #    environment:
-#      MYSQL_ROOT_PASSWORD: root1234
-#      MYSQL_DATABASE: shopdevgo
-#      MYSQL_PASSWORD: root1234
+#      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+#      - MYSQL_DATABASE=${MYSQL_DBNAME}
 #    ports:
-#      - "33306:3306"
+#      - "${MYSQL_PORT}:3306"
 #    volumes:
-#      - mysql_data:/var/lib/mysql
+#      - ./data/mysql_data:/var/lib/mysql
 #      - ./init:/docker-entrypoint-initdb.d
+#    healthcheck:
+#      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p$MYSQL_ROOT_PASSWORD"]
+#      interval: 10s
+#      timeout: 10s
+#      retries: 5
+#      start_period: 30s
+#    networks:
+#      - go-ecommerce-local-network
+
+
+
+  # mysql exporter (Prometheus metrics)
+#  mysql_exporter:
+#    image: prom/mysqld-exporter:latest
+#    container_name: mysql_exporter_container
+#    ports:
+#      - "${MONITORING_MYSQL_EXPORTER_PORT}:9104" #exporter metrics port
+#    depends_on:
+#      - mysql
+#    volumes:
+#      - ../config/mysql_export_local_cnf.cnf:/.my.cnf
+#    networks:
+#      - go-ecommerce-local-network
+
   redis:
     image: redis:7.0
     container_name: redis_container
@@ -44,26 +68,39 @@ services:
     networks:
       - go-ecommerce-local-network
 
+    # redis metrics service
+  redis-exporter:
+    image: oliver006/redis_exporter:latest
+    container_name: redis-exporter
+    ports:
+      - "${MONITORING_REDIS_EXPORTER_PORT}:9121"
+    networks:
+      - go-ecommerce-local-network
+    command:
+      - "--redis.addr=redis://redis:6379"
+    depends_on:
+      - redis
+  # Kafka service
   kafka-0:
     image: bitnami/kafka:3.5
     container_name: kafka_container
     ports:
-      - "9092:9092" # Internal listener
-      - "9094:9094" # External listener - use in application
+      - "${KAFAK_PORT_INTERNAL}:${KAFAK_PORT_INTERNAL}" # Internal listener
+      - "${KAFAK_PORT_EXTERNAL}:${KAFAK_PORT_EXTERNAL}" # External listener - use in application
     environment:
       # cluster configuration
       - KAFKA_CFG_NODE_ID=0
       - KAFKA_CFG_PROCESS_ROLES=controller,broker
-      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka-0:9092
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka-0:${KAFAK_PORT_INTERNAL}
 
       # Listener configurations
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
 
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9091,CONTROLLER://:9092,EXTERNAL://:9094
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9091,CONTROLLER://:${KAFAK_PORT_INTERNAL},EXTERNAL://:${KAFAK_PORT_EXTERNAL}
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT
 
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-0:9091,EXTERNAL://localhost:9094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-0:9091,EXTERNAL://localhost:${KAFAK_PORT_EXTERNAL}
 
       # Performance and operational settings
       - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
@@ -82,6 +119,7 @@ services:
       - ./data/kafka_data:/bitnami/kafka
     networks:
       - go-ecommerce-local-network
+    # Kafka UI (Optional)
   kafka_ui:
     image: provectuslabs/kafka-ui:latest
     container_name: kafka_ui
@@ -94,7 +132,19 @@ services:
       - kafka-0
     networks:
       - go-ecommerce-local-network
-
+  # Kafka exporter (use in prometheus)
+  kafka_exporter:
+    image: danielqsj/kafka-exporter:latest
+    container_name: kafka_exporter
+    ports:
+      - "${MONITORING_KAFKA_EXPORTER_PORT}:9308"
+    command:
+      - '--kafka.server=kafka-0:9091'
+    depends_on:
+      - kafka-0
+    networks:
+      - go-ecommerce-local-network
+    restart: on-failure
 volumes:
   redis_data:
     driver: local

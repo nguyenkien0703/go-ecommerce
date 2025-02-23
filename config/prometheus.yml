@@ -1,0 +1,39 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "go-ecommerce-kafka"
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - "host.docker.internal:9308" #kafka exporter
+
+
+
+  - job_name: "go-ecommerce-mysql"
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - "host.docker.internal:9104" #mysql exporter
+
+
+  - job_name: "go-ecommerce-redis"
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - "host.docker.internal:9121" #redis exporter
+
+
+  - job_name: "go-ecommerce-prometheus"
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - "host.docker.internal:9090" #prometheus itself
+
+
+
+  - job_name: "go-ecommerce-node-exporter"
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - "host.docker.internal:8082"
