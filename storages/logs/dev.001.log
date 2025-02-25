@@ -1,0 +1,108 @@
+{"level":"INFO","time":"2025-02-25T22:43:36.445+0700","caller":"initialize/run.go:23","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-25T22:43:36.447+0700","caller":"initialize/run.go:27","msg":"Prometheus initialized"}
+{"level":"INFO","time":"2025-02-25T22:43:37.051+0700","caller":"initialize/mysql.go:37","msg":"MySQL connection successful"}
+{"level":"INFO","time":"2025-02-25T22:43:37.052+0700","caller":"initialize/run.go:31","msg":"Mysql initialized"}
+{"level":"INFO","time":"2025-02-25T22:43:37.052+0700","caller":"initialize/mysqlc.go:25","msg":"initialize MySQL database success"}
+{"level":"INFO","time":"2025-02-25T22:43:37.052+0700","caller":"initialize/run.go:35","msg":"MysqlC initialized"}
+{"level":"INFO","time":"2025-02-25T22:43:37.053+0700","caller":"initialize/run.go:39","msg":"Service interface initialized"}
+{"level":"INFO","time":"2025-02-25T22:43:37.401+0700","caller":"initialize/run.go:43","msg":"Redis initialized"}
+{"level":"INFO","time":"2025-02-25T22:43:37.401+0700","caller":"initialize/run.go:47","msg":"Kafka initialized"}
+{"level":"INFO","time":"2025-02-25T22:49:09.607+0700","caller":"initialize/run.go:23","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-25T22:49:09.608+0700","caller":"initialize/run.go:27","msg":"Prometheus initialized"}
+{"level":"INFO","time":"2025-02-25T22:49:09.659+0700","caller":"initialize/mysql.go:37","msg":"MySQL connection successful"}
+{"level":"INFO","time":"2025-02-25T22:49:09.659+0700","caller":"initialize/run.go:31","msg":"Mysql initialized"}
+{"level":"INFO","time":"2025-02-25T22:49:09.660+0700","caller":"initialize/mysqlc.go:25","msg":"initialize MySQL database success"}
+{"level":"INFO","time":"2025-02-25T22:49:09.660+0700","caller":"initialize/run.go:35","msg":"MysqlC initialized"}
+{"level":"INFO","time":"2025-02-25T22:49:09.660+0700","caller":"initialize/run.go:39","msg":"Service interface initialized"}
+{"level":"INFO","time":"2025-02-25T22:49:09.663+0700","caller":"initialize/run.go:43","msg":"Redis initialized"}
+{"level":"INFO","time":"2025-02-25T22:49:09.663+0700","caller":"initialize/run.go:47","msg":"Kafka initialized"}
+{"level":"INFO","time":"2025-02-25T22:51:49.996+0700","caller":"initialize/run.go:23","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-25T22:51:49.997+0700","caller":"initialize/run.go:27","msg":"Prometheus initialized"}
+{"level":"INFO","time":"2025-02-25T22:51:50.008+0700","caller":"initialize/mysql.go:37","msg":"MySQL connection successful"}
+{"level":"INFO","time":"2025-02-25T22:51:50.008+0700","caller":"initialize/run.go:31","msg":"Mysql initialized"}
+{"level":"INFO","time":"2025-02-25T22:51:50.009+0700","caller":"initialize/mysqlc.go:25","msg":"initialize MySQL database success"}
+{"level":"INFO","time":"2025-02-25T22:51:50.009+0700","caller":"initialize/run.go:35","msg":"MysqlC initialized"}
+{"level":"INFO","time":"2025-02-25T22:51:50.009+0700","caller":"initialize/run.go:39","msg":"Service interface initialized"}
+{"level":"INFO","time":"2025-02-25T22:51:50.013+0700","caller":"initialize/run.go:43","msg":"Redis initialized"}
+{"level":"INFO","time":"2025-02-25T22:51:50.013+0700","caller":"initialize/run.go:47","msg":"Kafka initialized"}
+{"level":"INFO","time":"2025-02-25T22:56:29.534+0700","caller":"initialize/run.go:23","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-25T22:56:29.534+0700","caller":"initialize/run.go:27","msg":"Prometheus initialized"}
+{"level":"INFO","time":"2025-02-25T22:56:29.585+0700","caller":"initialize/mysql.go:37","msg":"MySQL connection successful"}
+{"level":"INFO","time":"2025-02-25T22:56:29.585+0700","caller":"initialize/run.go:31","msg":"Mysql initialized"}
+{"level":"INFO","time":"2025-02-25T22:56:29.585+0700","caller":"initialize/mysqlc.go:25","msg":"initialize MySQL database success"}
+{"level":"INFO","time":"2025-02-25T22:56:29.585+0700","caller":"initialize/run.go:35","msg":"MysqlC initialized"}
+{"level":"INFO","time":"2025-02-25T22:56:29.585+0700","caller":"initialize/run.go:39","msg":"Service interface initialized"}
+{"level":"INFO","time":"2025-02-25T22:56:29.589+0700","caller":"initialize/run.go:43","msg":"Redis initialized"}
+{"level":"INFO","time":"2025-02-25T22:56:29.589+0700","caller":"initialize/run.go:47","msg":"Kafka initialized"}
+{"level":"INFO","time":"2025-02-25T22:56:46.730+0700","caller":"initialize/run.go:23","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-25T22:56:46.731+0700","caller":"initialize/run.go:27","msg":"Prometheus initialized"}
+{"level":"INFO","time":"2025-02-25T22:56:46.775+0700","caller":"initialize/mysql.go:37","msg":"MySQL connection successful"}
+{"level":"INFO","time":"2025-02-25T22:56:46.775+0700","caller":"initialize/run.go:31","msg":"Mysql initialized"}
+{"level":"INFO","time":"2025-02-25T22:56:46.775+0700","caller":"initialize/mysqlc.go:25","msg":"initialize MySQL database success"}
+{"level":"INFO","time":"2025-02-25T22:56:46.775+0700","caller":"initialize/run.go:35","msg":"MysqlC initialized"}
+{"level":"INFO","time":"2025-02-25T22:56:46.775+0700","caller":"initialize/run.go:39","msg":"Service interface initialized"}
+{"level":"INFO","time":"2025-02-25T22:56:46.778+0700","caller":"initialize/run.go:43","msg":"Redis initialized"}
+{"level":"INFO","time":"2025-02-25T22:56:46.778+0700","caller":"initialize/run.go:47","msg":"Kafka initialized"}
+{"level":"INFO","time":"2025-02-25T22:57:47.082+0700","caller":"initialize/run.go:23","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-25T22:57:47.083+0700","caller":"initialize/run.go:27","msg":"Prometheus initialized"}
+{"level":"INFO","time":"2025-02-25T22:57:47.091+0700","caller":"initialize/mysql.go:37","msg":"MySQL connection successful"}
+{"level":"INFO","time":"2025-02-25T22:57:47.091+0700","caller":"initialize/run.go:31","msg":"Mysql initialized"}
+{"level":"INFO","time":"2025-02-25T22:57:47.091+0700","caller":"initialize/mysqlc.go:25","msg":"initialize MySQL database success"}
+{"level":"INFO","time":"2025-02-25T22:57:47.091+0700","caller":"initialize/run.go:35","msg":"MysqlC initialized"}
+{"level":"INFO","time":"2025-02-25T22:57:47.091+0700","caller":"initialize/run.go:39","msg":"Service interface initialized"}
+{"level":"INFO","time":"2025-02-25T22:57:47.094+0700","caller":"initialize/run.go:43","msg":"Redis initialized"}
+{"level":"INFO","time":"2025-02-25T22:57:47.094+0700","caller":"initialize/run.go:47","msg":"Kafka initialized"}
+{"level":"INFO","time":"2025-02-25T22:58:05.958+0700","caller":"initialize/run.go:23","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-25T22:58:05.959+0700","caller":"initialize/run.go:27","msg":"Prometheus initialized"}
+{"level":"INFO","time":"2025-02-25T22:58:06.241+0700","caller":"initialize/mysql.go:37","msg":"MySQL connection successful"}
+{"level":"INFO","time":"2025-02-25T22:58:06.241+0700","caller":"initialize/run.go:31","msg":"Mysql initialized"}
+{"level":"INFO","time":"2025-02-25T22:58:06.241+0700","caller":"initialize/mysqlc.go:25","msg":"initialize MySQL database success"}
+{"level":"INFO","time":"2025-02-25T22:58:06.241+0700","caller":"initialize/run.go:35","msg":"MysqlC initialized"}
+{"level":"INFO","time":"2025-02-25T22:58:06.241+0700","caller":"initialize/run.go:39","msg":"Service interface initialized"}
+{"level":"INFO","time":"2025-02-25T22:58:06.246+0700","caller":"initialize/run.go:43","msg":"Redis initialized"}
+{"level":"INFO","time":"2025-02-25T22:58:06.246+0700","caller":"initialize/run.go:47","msg":"Kafka initialized"}
+{"level":"INFO","time":"2025-02-25T23:00:16.707+0700","caller":"initialize/run.go:23","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-25T23:00:16.708+0700","caller":"initialize/run.go:27","msg":"Prometheus initialized"}
+{"level":"INFO","time":"2025-02-25T23:00:16.717+0700","caller":"initialize/mysql.go:37","msg":"MySQL connection successful"}
+{"level":"INFO","time":"2025-02-25T23:00:16.717+0700","caller":"initialize/run.go:31","msg":"Mysql initialized"}
+{"level":"INFO","time":"2025-02-25T23:00:16.717+0700","caller":"initialize/mysqlc.go:25","msg":"initialize MySQL database success"}
+{"level":"INFO","time":"2025-02-25T23:00:16.717+0700","caller":"initialize/run.go:35","msg":"MysqlC initialized"}
+{"level":"INFO","time":"2025-02-25T23:00:16.717+0700","caller":"initialize/run.go:39","msg":"Service interface initialized"}
+{"level":"INFO","time":"2025-02-25T23:00:16.722+0700","caller":"initialize/run.go:43","msg":"Redis initialized"}
+{"level":"INFO","time":"2025-02-25T23:00:16.722+0700","caller":"initialize/run.go:47","msg":"Kafka initialized"}
+{"level":"INFO","time":"2025-02-25T23:02:05.239+0700","caller":"initialize/run.go:23","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-25T23:02:05.240+0700","caller":"initialize/run.go:27","msg":"Prometheus initialized"}
+{"level":"INFO","time":"2025-02-25T23:02:05.279+0700","caller":"initialize/mysql.go:37","msg":"MySQL connection successful"}
+{"level":"INFO","time":"2025-02-25T23:02:05.279+0700","caller":"initialize/run.go:31","msg":"Mysql initialized"}
+{"level":"INFO","time":"2025-02-25T23:02:05.279+0700","caller":"initialize/mysqlc.go:25","msg":"initialize MySQL database success"}
+{"level":"INFO","time":"2025-02-25T23:02:05.279+0700","caller":"initialize/run.go:35","msg":"MysqlC initialized"}
+{"level":"INFO","time":"2025-02-25T23:02:05.279+0700","caller":"initialize/run.go:39","msg":"Service interface initialized"}
+{"level":"INFO","time":"2025-02-25T23:02:05.285+0700","caller":"initialize/run.go:43","msg":"Redis initialized"}
+{"level":"INFO","time":"2025-02-25T23:02:05.285+0700","caller":"initialize/run.go:47","msg":"Kafka initialized"}
+{"level":"INFO","time":"2025-02-25T23:02:49.278+0700","caller":"initialize/run.go:23","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-25T23:02:49.280+0700","caller":"initialize/run.go:27","msg":"Prometheus initialized"}
+{"level":"INFO","time":"2025-02-25T23:02:49.293+0700","caller":"initialize/mysql.go:37","msg":"MySQL connection successful"}
+{"level":"INFO","time":"2025-02-25T23:02:49.293+0700","caller":"initialize/run.go:31","msg":"Mysql initialized"}
+{"level":"INFO","time":"2025-02-25T23:02:49.293+0700","caller":"initialize/mysqlc.go:25","msg":"initialize MySQL database success"}
+{"level":"INFO","time":"2025-02-25T23:02:49.293+0700","caller":"initialize/run.go:35","msg":"MysqlC initialized"}
+{"level":"INFO","time":"2025-02-25T23:02:49.293+0700","caller":"initialize/run.go:39","msg":"Service interface initialized"}
+{"level":"INFO","time":"2025-02-25T23:02:49.298+0700","caller":"initialize/run.go:43","msg":"Redis initialized"}
+{"level":"INFO","time":"2025-02-25T23:02:49.298+0700","caller":"initialize/run.go:47","msg":"Kafka initialized"}
+{"level":"INFO","time":"2025-02-25T23:06:50.691+0700","caller":"initialize/run.go:23","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-25T23:06:50.692+0700","caller":"initialize/run.go:27","msg":"Prometheus initialized"}
+{"level":"INFO","time":"2025-02-25T23:06:50.704+0700","caller":"initialize/mysql.go:37","msg":"MySQL connection successful"}
+{"level":"INFO","time":"2025-02-25T23:06:50.704+0700","caller":"initialize/run.go:31","msg":"Mysql initialized"}
+{"level":"INFO","time":"2025-02-25T23:06:50.704+0700","caller":"initialize/mysqlc.go:25","msg":"initialize MySQL database success"}
+{"level":"INFO","time":"2025-02-25T23:06:50.704+0700","caller":"initialize/run.go:35","msg":"MysqlC initialized"}
+{"level":"INFO","time":"2025-02-25T23:06:50.704+0700","caller":"initialize/run.go:39","msg":"Service interface initialized"}
+{"level":"INFO","time":"2025-02-25T23:06:50.709+0700","caller":"initialize/run.go:43","msg":"Redis initialized"}
+{"level":"INFO","time":"2025-02-25T23:06:50.709+0700","caller":"initialize/run.go:47","msg":"Kafka initialized"}
+{"level":"INFO","time":"2025-02-25T23:07:55.608+0700","caller":"initialize/run.go:23","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-25T23:07:55.608+0700","caller":"initialize/run.go:27","msg":"Prometheus initialized"}
+{"level":"INFO","time":"2025-02-25T23:07:55.635+0700","caller":"initialize/mysql.go:37","msg":"MySQL connection successful"}
+{"level":"INFO","time":"2025-02-25T23:07:55.635+0700","caller":"initialize/run.go:31","msg":"Mysql initialized"}
+{"level":"INFO","time":"2025-02-25T23:07:55.635+0700","caller":"initialize/mysqlc.go:25","msg":"initialize MySQL database success"}
+{"level":"INFO","time":"2025-02-25T23:07:55.635+0700","caller":"initialize/run.go:35","msg":"MysqlC initialized"}
+{"level":"INFO","time":"2025-02-25T23:07:55.635+0700","caller":"initialize/run.go:39","msg":"Service interface initialized"}
+{"level":"INFO","time":"2025-02-25T23:07:55.639+0700","caller":"initialize/run.go:43","msg":"Redis initialized"}
+{"level":"INFO","time":"2025-02-25T23:07:55.639+0700","caller":"initialize/run.go:47","msg":"Kafka initialized"}

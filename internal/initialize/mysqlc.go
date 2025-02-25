@@ -17,22 +17,22 @@ func checkErrorPanicC(err error, errString string) {
 }
 
 func InitMysqlC() {
-	m := global.Config.Mysql
+	m := global.Config.MySQL
 	dsn := "%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local"
 	var s = fmt.Sprintf(dsn, m.Username, m.Password, m.Host, m.Port, m.Dbname)
 	db, err := sql.Open("mysql", s)
-	checkErrorPanic(err, "Failed to connect to MySQL database")
+	checkErrorPanicC(err, "Failed to connect to MySQL database")
 	global.Logger.Info("initialize MySQL database success")
 	global.Mdbc = db
-	// set Pool settings
-	SetPool()
+	// set Pool
+	SetPoolC()
 	//genTableDAO()
-	migrateTables()
+	//MigrateTablesC()
 
 }
 
 func SetPoolC() {
-	m := global.Config.Mysql
+	m := global.Config.MySQL
 	sqlDb, err := global.Mdb.DB()
 	if err != nil {
 		fmt.Println("mysql error: %s::", err)

@@ -38,6 +38,7 @@ package routers
 //
 //	v1 := r.Group("/v1")
 //	{
+
 //		v1.GET("/ping", c.NewPongController().Pong)
 //		//v1.GET("/user/1", c.NewUserController().GetUserById)
 //		// v1.PUT("/ping", Pong)

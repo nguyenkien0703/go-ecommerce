@@ -11,6 +11,7 @@ import (
 	"time"
 )
 
+// struct Rate Limiter
 type RateLimiter struct {
 	// implement rate limiter logic here
 	globalRateLimiter         *limiter.Limiter
@@ -18,6 +19,7 @@ type RateLimiter struct {
 	userPrivateAPIRateLimiter *limiter.Limiter
 }
 
+// new RateLimiter
 func NewRateLimiter() *RateLimiter {
 	rateLimit := &RateLimiter{
 		globalRateLimiter:         rateLimiter("100-S"), // 100request/s
@@ -27,6 +29,15 @@ func NewRateLimiter() *RateLimiter {
 	return rateLimit
 
 }
+
+/**
+ * create limiter with time interval
+ * Example:
+ * 	5 reqs/second: "5-S"
+ * 	10 reqs/minute: "10-M"
+ * 	1000 reqs/hour: "1000-H"
+ * 	2000 reqs/day: "2000-D"
+ */
 func rateLimiter(interval string) *limiter.Limiter {
 	store, err := redisStore.NewStoreWithOptions(global.Rdb, limiter.StoreOptions{
 		Prefix:          "rate-limiter", // u:uuid -> u:1001
@@ -47,7 +58,7 @@ func rateLimiter(interval string) *limiter.Limiter {
 }
 
 // GLOBAL LIMITER
-func (rl *RateLimiter) GlobalRateLimiter() gin.HandlerFunc {
+func (rl *RateLimiter) GlobalLimiter() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		key := "global" // uint
 
@@ -67,7 +78,7 @@ func (rl *RateLimiter) GlobalRateLimiter() gin.HandlerFunc {
 }
 
 // PUBLIC API LIMITER
-func (rl *RateLimiter) PublicAPIRateLimiter() gin.HandlerFunc {
+func (rl *RateLimiter) PublicAPILimiter() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		urlPath := c.Request.URL.Path //urlPath: /ping/80 80 >
 		rateLimitPath := rl.filterLimitUrlPath(urlPath)
@@ -91,7 +102,7 @@ func (rl *RateLimiter) PublicAPIRateLimiter() gin.HandlerFunc {
 }
 
 // PRIVATE API LIMITER
-func (rl *RateLimiter) UserAndPrivateRateLimiter() gin.HandlerFunc {
+func (rl *RateLimiter) UserPrivateAPILimiter() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		urlPath := c.Request.URL.Path
 		rateLimitPath := rl.filterLimitUrlPath(urlPath)

@@ -1,0 +1,254 @@
+basePath: /v1/2024
+definitions:
+  model.LoginInputHaha:
+    properties:
+      user_account:
+        type: string
+      user_password:
+        type: string
+    type: object
+  model.RegisterInput:
+    properties:
+      verify_key:
+        type: string
+      verify_purpose:
+        type: string
+      verify_type:
+        type: integer
+    type: object
+  model.SetupTwoFactorAuthInput:
+    properties:
+      two_factor_auth_type:
+        type: string
+      two_factor_email:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  model.TwoFactorVerificationInput:
+    properties:
+      two_factor_code:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  model.UpdatePasswordRegisterInput:
+    properties:
+      user_password:
+        type: string
+      user_token:
+        type: string
+    type: object
+  model.VerifyInput:
+    properties:
+      verify_code:
+        type: string
+      verify_key:
+        type: string
+    type: object
+  response.ErrResponseData:
+    properties:
+      code:
+        description: Ma status code
+        type: integer
+      detail:
+        description: Thong bao loi
+      error:
+        type: string
+    type: object
+  response.ResponseData:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8082
+info:
+  contact:
+    email: nguyenkien07032003ns@gmail.com
+    name: TEAM TIPSGO
+    url: github.com/nguyenkien0703/go-ecommerce
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: github.com/nguyenkien0703/go-ecommerce
+  title: API Documentation Ecommerce Backend SHOPDEVGO
+  version: 1.0.0
+paths:
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: User Login
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginInputHaha'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrResponseData'
+      summary: User Login
+      tags:
+      - accounts management
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: When user register, system will send OTP to user's phone number
+        or email address
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.RegisterInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrResponseData'
+      summary: Register a new account
+      tags:
+      - accounts management
+  /user/two-factor/setup:
+    post:
+      consumes:
+      - application/json
+      description: ser Setup Two Factor Authentication
+      parameters:
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.SetupTwoFactorAuthInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrResponseData'
+      summary: ser Setup Two Factor Authentication
+      tags:
+      - account 2fa
+  /user/two-factor/verify:
+    post:
+      consumes:
+      - application/json
+      description: ser Verify Two Factor Authentication
+      parameters:
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.TwoFactorVerificationInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrResponseData'
+      summary: ser Verify Two Factor Authentication
+      tags:
+      - account 2fa
+  /user/update_pass_register:
+    post:
+      consumes:
+      - application/json
+      description: UpdatePasswordRegister
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdatePasswordRegisterInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrResponseData'
+      summary: UpdatePasswordRegister
+      tags:
+      - accounts management
+  /user/verify_account:
+    post:
+      consumes:
+      - application/json
+      description: Verify OTP Login By User
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.VerifyInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrResponseData'
+      summary: Verify OTP Login By User
+      tags:
+      - accounts management
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"

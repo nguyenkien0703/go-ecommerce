@@ -113,6 +113,7 @@ func (s *sUserLogin) VerifyTwoFactorAuth(ctx context.Context, in *model.TwoFacto
 // Implement the IUserLogin interface here
 func (s *sUserLogin) Login(ctx context.Context, in *model.LoginInputHaha) (codeResult int, out model.LoginOutputHaha, err error) {
 	// 1. logic login
+	fmt.Println("------", in.UserPassword, in.UserAccount)
 	userBase, err := s.r.GetOneUserInfo(ctx, in.UserAccount)
 	if err != nil {
 		return response.ErrCodeAuthFailed, out, err

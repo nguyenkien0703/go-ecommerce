@@ -13,12 +13,12 @@ type PayloadClaims struct {
 
 func GenTokenJWT(payload jwt.Claims) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, payload)
-	return token.SignedString([]byte(global.Config.JWT.API_SECRET_KEY))
+	return token.SignedString([]byte(global.Config.Jwt.API_SECRET))
 }
 
 func CreateToken(uuidToken string) (string, error) {
 	//1. Set time expiration
-	timeEx := global.Config.JWT.JWT_EXPIRATION
+	timeEx := global.Config.Jwt.JWT_EXPIRATION
 	if timeEx == "" {
 		timeEx = "1h"
 	}
@@ -41,7 +41,7 @@ func CreateToken(uuidToken string) (string, error) {
 
 func ParseJwtTokenSubject(token string) (*jwt.StandardClaims, error) {
 	tokenClaims, err := jwt.ParseWithClaims(token, &jwt.StandardClaims{}, func(jwtToken *jwt.Token) (interface{}, error) {
-		return []byte(global.Config.JWT.API_SECRET_KEY), nil
+		return []byte(global.Config.Jwt.API_SECRET), nil
 	})
 	if tokenClaims != nil {
 		if claims, ok := tokenClaims.Claims.(*jwt.StandardClaims); ok && tokenClaims.Valid {

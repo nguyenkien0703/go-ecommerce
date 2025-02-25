@@ -13,7 +13,7 @@ type LoggerZap struct {
 }
 
 func NewLogger(config setting.LoggerSetting) *LoggerZap {
-	logLevel := config.Log_level //"debug"
+	logLevel := config.Level //"debug" // debug -> info -> warn -> error -> dpanic -> panic -> fatal
 	// debug -> infor -> warn -> error -> fatal -> panic
 	var level zapcore.Level
 	switch logLevel {
@@ -31,11 +31,11 @@ func NewLogger(config setting.LoggerSetting) *LoggerZap {
 
 	encoder := getEncoderLog()
 	hook := lumberjack.Logger{
-		Filename:   config.File_log_name,
-		MaxSize:    config.Max_size, // megabytes
-		MaxBackups: config.Max_backups,
-		MaxAge:     config.Max_age,  // days
-		Compress:   config.Compress, // disabled by default
+		Filename:   config.Filename,   // Path to log file
+		MaxSize:    config.MaxSize,    // Max megabytes before rotation
+		MaxBackups: config.MaxBackups, // Max number of old log files to keep
+		MaxAge:     config.MaxAge,     // Max number of days to retain old files
+		Compress:   config.Compress,   // Whether to compress old files
 	}
 	core := zapcore.NewCore(encoder,
 		zapcore.NewMultiWriteSyncer(zapcore.AddSync(os.Stdout), zapcore.AddSync(&hook)),
