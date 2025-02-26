@@ -36,6 +36,7 @@ func main() {
 	// use swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	port := strconv.Itoa(global.Config.Server.Port)
+
 	r.Run(":" + port)
 	kien := global.Prometheus.RequestCount
 	fmt.Println("kien line 41----", kien)

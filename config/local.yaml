@@ -3,9 +3,9 @@ server:
   mode: "dev" # default: dev, options: dev, prod
 mysql:
   host: 127.0.0.1
-  port: 3307
+  port: 33306
   username: root
-  password: topsecret
+  password: root1234
   dbName: shopdevgo
   maxIdleConns: 10
   maxOpenConns: 100

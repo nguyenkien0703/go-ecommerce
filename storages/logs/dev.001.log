@@ -208,3 +208,27 @@
 {"level":"INFO","time":"2025-02-26T22:42:03.265+0700","caller":"initialize/run.go:23","msg":"Logger initialized"}
 {"level":"INFO","time":"2025-02-26T22:42:03.285+0700","caller":"initialize/run.go:27","msg":"Prometheus initialized"}
 {"level":"ERROR","time":"2025-02-26T22:42:03.286+0700","caller":"initialize/mysql.go:17","msg":"MySQL connection failed","error":"dial tcp 127.0.0.1:3307: connect: connection refused","stacktrace":"example.com/go-ecommerce-backend-api/internal/initialize.checkErrorPanic\n\t/mnt/d/software/training_technical/go/tipjs/go-ecommerce/internal/initialize/mysql.go:17\nexample.com/go-ecommerce-backend-api/internal/initialize.InitMysql\n\t/mnt/d/software/training_technical/go/tipjs/go-ecommerce/internal/initialize/mysql.go:35\nexample.com/go-ecommerce-backend-api/internal/initialize.Run\n\t/mnt/d/software/training_technical/go/tipjs/go-ecommerce/internal/initialize/run.go:30\nmain.main\n\t/mnt/d/software/training_technical/go/tipjs/go-ecommerce/cmd/server/main.go:35\nruntime.main\n\t/home/kien/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.3.linux-amd64/src/runtime/proc.go:272"}
+{"level":"INFO","time":"2025-02-27T00:30:18.973+0700","caller":"initialize/run.go:24","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-27T00:30:18.989+0700","caller":"initialize/run.go:28","msg":"Prometheus initialized"}
+{"level":"ERROR","time":"2025-02-27T00:30:18.992+0700","caller":"initialize/mysql.go:17","msg":"MySQL connection failed","error":"dial tcp 127.0.0.1:3307: connectex: No connection could be made because the target machine actively refused it.","stacktrace":"example.com/go-ecommerce-backend-api/internal/initialize.checkErrorPanic\n\tD:/software/training_technical/go/tipjs/go-ecommerce/internal/initialize/mysql.go:17\nexample.com/go-ecommerce-backend-api/internal/initialize.InitMysql\n\tD:/software/training_technical/go/tipjs/go-ecommerce/internal/initialize/mysql.go:35\nexample.com/go-ecommerce-backend-api/internal/initialize.Run\n\tD:/software/training_technical/go/tipjs/go-ecommerce/internal/initialize/run.go:31\nmain.main\n\tD:/software/training_technical/go/tipjs/go-ecommerce/cmd/server/main.go:35\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","time":"2025-02-27T00:32:21.124+0700","caller":"initialize/run.go:24","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-27T00:32:21.125+0700","caller":"initialize/run.go:28","msg":"Prometheus initialized"}
+{"level":"ERROR","time":"2025-02-27T00:32:21.784+0700","caller":"initialize/mysql.go:17","msg":"MySQL connection failed","error":"Error 1045 (28000): Access denied for user 'root1234'@'192.168.48.1' (using password: YES)","stacktrace":"example.com/go-ecommerce-backend-api/internal/initialize.checkErrorPanic\n\tD:/software/training_technical/go/tipjs/go-ecommerce/internal/initialize/mysql.go:17\nexample.com/go-ecommerce-backend-api/internal/initialize.InitMysql\n\tD:/software/training_technical/go/tipjs/go-ecommerce/internal/initialize/mysql.go:35\nexample.com/go-ecommerce-backend-api/internal/initialize.Run\n\tD:/software/training_technical/go/tipjs/go-ecommerce/internal/initialize/run.go:31\nmain.main\n\tD:/software/training_technical/go/tipjs/go-ecommerce/cmd/server/main.go:35\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","time":"2025-02-27T00:34:59.292+0700","caller":"initialize/run.go:24","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-27T00:34:59.293+0700","caller":"initialize/run.go:28","msg":"Prometheus initialized"}
+{"level":"INFO","time":"2025-02-27T00:34:59.639+0700","caller":"initialize/mysql.go:37","msg":"MySQL connection successful"}
+{"level":"INFO","time":"2025-02-27T00:34:59.639+0700","caller":"initialize/run.go:32","msg":"Mysql initialized"}
+{"level":"INFO","time":"2025-02-27T00:34:59.640+0700","caller":"initialize/mysqlc.go:25","msg":"initialize MySQL database success"}
+{"level":"INFO","time":"2025-02-27T00:34:59.640+0700","caller":"initialize/run.go:36","msg":"MysqlC initialized"}
+{"level":"INFO","time":"2025-02-27T00:34:59.640+0700","caller":"initialize/run.go:40","msg":"Service interface initialized"}
+{"level":"INFO","time":"2025-02-27T00:34:59.673+0700","caller":"initialize/run.go:44","msg":"Redis initialized"}
+{"level":"INFO","time":"2025-02-27T00:34:59.674+0700","caller":"initialize/run.go:48","msg":"Kafka initialized"}
+{"level":"INFO","time":"2025-02-27T00:35:59.578+0700","caller":"initialize/run.go:24","msg":"Logger initialized"}
+{"level":"INFO","time":"2025-02-27T00:35:59.580+0700","caller":"initialize/run.go:28","msg":"Prometheus initialized"}
+{"level":"INFO","time":"2025-02-27T00:35:59.590+0700","caller":"initialize/mysql.go:37","msg":"MySQL connection successful"}
+{"level":"INFO","time":"2025-02-27T00:35:59.590+0700","caller":"initialize/run.go:32","msg":"Mysql initialized"}
+{"level":"INFO","time":"2025-02-27T00:35:59.590+0700","caller":"initialize/mysqlc.go:25","msg":"initialize MySQL database success"}
+{"level":"INFO","time":"2025-02-27T00:35:59.590+0700","caller":"initialize/run.go:36","msg":"MysqlC initialized"}
+{"level":"INFO","time":"2025-02-27T00:35:59.590+0700","caller":"initialize/run.go:40","msg":"Service interface initialized"}
+{"level":"INFO","time":"2025-02-27T00:35:59.595+0700","caller":"initialize/run.go:44","msg":"Redis initialized"}
+{"level":"INFO","time":"2025-02-27T00:35:59.595+0700","caller":"initialize/run.go:48","msg":"Kafka initialized"}
