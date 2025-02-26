@@ -2,7 +2,6 @@ package initialize
 
 import (
 	"example.com/go-ecommerce-backend-api/global"
-	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -10,7 +9,7 @@ import (
 func Run() *gin.Engine {
 	// load configuration
 	LoadConfig()
-	fmt.Println("@@@ Loader configuration")
+	global.Logger.Info("@@@ Loader configuration")
 
 	// connect to rabbit mq
 	//InitRabbitMQ()

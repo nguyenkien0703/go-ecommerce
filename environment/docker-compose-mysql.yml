@@ -1,0 +1,18 @@
+version: '3.9'
+networks:
+  go-ecommerce-local-network:
+    driver: bridge
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_v8_container
+    command: env  # In tất cả biến môi trường khi container khởi động
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DBNAME}
+
+    ports:
+      - "${MYSQL_PORT}:3306"
+    networks:
+      - go-ecommerce-local-network
