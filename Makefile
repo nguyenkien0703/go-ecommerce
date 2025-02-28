@@ -108,6 +108,7 @@ GOOSE_PATH_QUERIES=sql/queries
 .PHONY: goose_create goose_up goose_down goose_status goose_fix goose_redo goose_reset goose_clean goose_up_by_one
 .PHONY: swag
 .PHONY: vegeta_benmark
+.PHONY: clean
 
 # Help Command
 help:
@@ -152,6 +153,21 @@ help:
 	@echo "\t ${YELLOW_COLOR_BG}swag${RESET_COLOR} \t Handle swagger"
 	@echo "\nVegeta attack benmark Commands:"
 	@echo "\t ${YELLOW_COLOR_BG}vegeta_benmark${RESET_COLOR} \t Run vegeta attack benmark"
+	@echo "\nGo clean Commands:"
+	@echo "\t ${YELLOW_COLOR_BG}clean${RESET_COLOR} \t clean go cache"
+
+
+
+
+#clean go
+clean:
+	@echo "${YELLOW_COLOR_BG}clean go starting ${RESET_COLOR}"
+	rm -rf bin/*
+	rm -rf ./.build/*
+	@echo "${GREEN_COLOR_BG}clean go finished ${RESET_COLOR}"
+
+
+
 
 
 # SQLC - Generate

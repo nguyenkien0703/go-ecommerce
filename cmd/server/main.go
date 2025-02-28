@@ -40,5 +40,6 @@ func main() {
 	r.Run(":" + port)
 	kien := global.Prometheus.RequestCount
 	fmt.Println("kien line 41----", kien)
+	fmt.Println("kien line 41----", kien)
 
 }
