@@ -3,8 +3,10 @@ package context
 import (
 	"context"
 	"errors"
-	"example.com/go-ecommerce-backend-api/internal/utils/cache"
 	"log"
+
+	consts "example.com/go-ecommerce-backend-api/internal/const"
+	"example.com/go-ecommerce-backend-api/internal/utils/cache"
 )
 
 type InfoUserUUID struct {
@@ -13,7 +15,7 @@ type InfoUserUUID struct {
 }
 
 func GetSubjectUUID(ctx context.Context) (string, error) {
-	sUUID, ok := ctx.Value("subjectUUID").(string)
+	sUUID, ok := ctx.Value(consts.PAYLOAD_SUBJECT_UUID).(string)
 	if !ok {
 		return "", errors.New("failed to get subject UUID")
 	}

@@ -2,9 +2,11 @@ package middlewares
 
 import (
 	"context"
+	"log"
+
+	consts "example.com/go-ecommerce-backend-api/internal/const"
 	"example.com/go-ecommerce-backend-api/internal/utils/auth"
 	"github.com/gin-gonic/gin"
-	"log"
 )
 
 func AuthenMiddleware() gin.HandlerFunc {
@@ -37,8 +39,15 @@ func AuthenMiddleware() gin.HandlerFunc {
 
 		// update claims to context
 		log.Println("claims:::UUID", claims.Subject) // 11clitoken....
-		ctx := context.WithValue(c.Request.Context(), "subjectUUID", claims.Subject)
+		ctx := context.WithValue(c.Request.Context(), consts.PAYLOAD_SUBJECT_UUID, claims.Subject)
 		c.Request = c.Request.WithContext(ctx)
+
+		
+
+
+
+
+
 		c.Next()
 	}
 

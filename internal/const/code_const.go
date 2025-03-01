@@ -7,5 +7,16 @@ const (
 	TIME_OTP_REGISTER     int = 1
 	TIME_2FA_OTP_REGISTER int = 10
 
-	HOST_EMAIL string = "nguyenkien07032003ns@gmail.com"
+	EMAIL_HOST = "nguyenkien07032003ns@gmail.com"
+	TWO_FACTOR_EMAIL = "EMAIL"
+	TWO_FACTOR_SMS = "SMS"
+
+	PAYLOAD_SUBJECT_UUID = "SUBJECT_UUID"
+
+
+
+
+
+
+
 )

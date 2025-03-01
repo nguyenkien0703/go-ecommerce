@@ -145,7 +145,7 @@ func (s *sUserLogin) Login(ctx context.Context, in *model.LoginInputHaha) (codeR
 		}
 		// go sendto.SendEmailToJavaByAPI()
 		log.Println("send OTP 2FA to Email::", infoUserTwoFactor.TwoFactorEmail)
-		go sendto.SendTextEmailOtp([]string{infoUserTwoFactor.TwoFactorEmail.String}, consts.HOST_EMAIL, "111111")
+		go sendto.SendTextEmailOtp([]string{infoUserTwoFactor.TwoFactorEmail.String}, consts.EMAIL_HOST, "111111")
 
 		out.Message = "send OTP 2FA to Email, pls het OTP by Email.."
 		return response.ErrCodeSuccess, out, nil
@@ -232,7 +232,7 @@ func (s *sUserLogin) Register(ctx context.Context, in *model.RegisterInput) (cod
 	// 6/ Sen OTP
 	switch in.VerifyType {
 	case consts.EMAIL:
-		err = sendto.SendTextEmailOtp([]string{in.VerifyKey}, consts.HOST_EMAIL, strconv.Itoa(otpNew))
+		err = sendto.SendTextEmailOtp([]string{in.VerifyKey}, consts.EMAIL_HOST, strconv.Itoa(otpNew))
 		if err != nil {
 			return response.ErrSendEmailOTP, err
 		}
