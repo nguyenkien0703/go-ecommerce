@@ -46,5 +46,6 @@ func main() {
 	fmt.Println("kien line 41----", kien)
 	fmt.Println("kien line 41----", kien)
 	fmt.Println("kien line 42----", kien)
+	fmt.Println("hoa line 42----", kien)
 
 }
